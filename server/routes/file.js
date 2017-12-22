@@ -8,7 +8,7 @@ var checkToken = require('../middleware/checkToken');
 //使用multer的磁盘存储
 var storage =  multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, '../static')
+      cb(null, './uploads')
     },
     filename: function (req, file, cb) {
       var fileClass = file.originalname.split('.')[1];
@@ -39,7 +39,8 @@ router.post('/file/upload', upload.single('pic'), function(req, res, next){
 });
 
 router.post('/file/delete',function(req, res, next){
-  fs.unlink(req.body.filepath, function(err){
+  var filepath = "./uploads/" + req.body.filepath;
+  fs.unlink(filepath, function(err){
       if(err){
         res.send({
           code: -200,

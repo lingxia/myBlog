@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes');
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(bodyParser.json({limit: '50mb' }));
-// app.use('/static', express.static('../static'));
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 // 跨域
 app.all('*', function(req, res, next) {
